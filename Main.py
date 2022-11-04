@@ -1,44 +1,46 @@
 from typing import List
 
-def merge(nums1: List[int], m: int, nums2: List[int], n: int) -> None:
-  # Write code here
-  array = [0 for i in range(m + n)]
-  
+def merge(arr: [int], l: int, mid: int, r: int) -> [int]:
+  l1 = arr[l:mid]
+  l2 = arr[mid:r]
   i = 0
   j = 0
-  k = 0
-  
-  while i < m and j < n:
-    if nums1[i] < nums2[j]:
-      array[k] = nums1[i]
+  k = l
+  while i < len(l1) and j < len(l2):
+    if l1[i] < l2[j]:
+      arr[k] = l1[i]
       i += 1
     else:
-      array[k] = nums2[j]
+      arr[k] = l2[j]
       j += 1
     k += 1
-  
-  while i < m:
-    array[k] = nums1[i]
+  while i < len(l1):
+    arr[k] = l1[i]
     i += 1
     k += 1
-  
-  while j < n:
-    array[k] = nums2[j]
+  while j < len(l2):
+    arr[k] - l2[j]
     j += 1
     k += 1
+
+def merge_sort_ftn(arr, l, r) -> None:
+  if r - l >= 2:
+    mid = l + (r - l) // 2
+    merge_sort_ftn(arr, l, mid)
+    merge_sort_ftn(arr, mid, r)
+    merge(arr, l, mid, r)
   
-  for i in range(m + n):
-    nums1[i] = array[i]
+def merge_sort(data) -> None:
+  merge_sort_ftn(data, 0, len(data))
 
 
 # Do not change the following code
-nums1 = []
-nums2 = []
-for item in input().split(', '):
-  nums1.append(int(item))
-for item in input().split(', '):
-  nums2.append(int(item))
-m = int(input())
-n = int(input())
-merge(nums1, m, nums2, n)
-print(nums1)
+input_data = input()
+data = []
+for item in input_data.split(', '):
+  if item.isnumeric():
+    data.append(int(item))
+  elif item.lstrip("-").isnumeric():
+    data.append(int(item))
+merge_sort(data)
+print(data)
